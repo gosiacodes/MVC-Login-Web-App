@@ -2,7 +2,7 @@ package aPackage;
 
 public class aBean {
 
-	private String userName, mailAdress, password;
+	private String userName, mailAdress, password, user;
 	
 	public String getUserName() {
 		return userName;
@@ -41,6 +41,26 @@ public class aBean {
 				userName.contentEquals(accountNameList[1]) && mailAdress.contentEquals(accountMailList[1]) && password.contentEquals(accountPasswordList[1]) ||
 				userName.contentEquals(accountNameList[2]) && mailAdress.contentEquals(accountMailList[2]) && password.contentEquals(accountPasswordList[2]) ||
 				userName.contentEquals(accountNameList[3]) && mailAdress.contentEquals(accountMailList[3]) && password.contentEquals(accountPasswordList[3]) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
+	
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+		
+	}
+	
+	public boolean validate2() {
+		if(user.contentEquals(accountNameList[0]) || user.contentEquals(accountNameList[1]) || 
+				user.contentEquals(accountNameList[2]) || user.contentEquals(accountNameList[3])) {
 			return true;
 		}
 		else {

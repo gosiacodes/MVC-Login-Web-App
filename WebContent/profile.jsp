@@ -1,4 +1,5 @@
 <%@page import="aPackage.ControllerAndCookieCreatorServlet"%>
+<%@page import="aPackage.aBean"%>
 
 <p>Welcome on your secret profile page!</p>
 
@@ -11,34 +12,39 @@ else {
 	out.print("<b>Your secret: </b>" + secret + "<br/><br/>");
 }
 
+
 try {
 	response.setContentType("text/html");
 	
 	Cookie ck[] = request.getCookies();
+	String user = ck[0].getValue();	
 	
-	String user = ck[0].getValue();
-	if (user.contentEquals("Gosia") || user.contentEquals("Julia") || 
-			user.contentEquals("Kacper") || user.contentEquals("Marcin")) {
-		out.println("Hello again, " + user + "!<br/>");
+	aBean bean = new aBean();
+	bean.setUser(user);
+	request.setAttribute("bean", bean);
+	
+	boolean userStatus = bean.validate2();
+	
+	if(userStatus) {
+		out.println("Hello again, we are glad to see you " + user + "!<br/>");
 	}
 	else {
 		String user2 = ck[1].getValue();
 		out.println("Hello again, " + user2 + "!<br/>");
 	}
 	
+	
 	out.println("<br><b>Cookies: </b>");
 	for(int i = 0; i < ck.length; i++) {  
-		 out.print("<br>" + "<b>" + ck[i].getName() + ":</b>" + " " + ck[i].getValue());
-		} 
-	
-	out.print("<br/><br/>");
-		
+		out.print("<br>" + "<b>" + ck[i].getName() + ":</b>" + " " + ck[i].getValue());
+		} 		
 	
 }
 catch (Exception e) {
 	System.out.println(e);
 }
 
+out.print("<br/><br/>");
 out.print("<form action='IndexApp.jsp'>");
 out.print("<input type='submit' value='Logout'>");
 
